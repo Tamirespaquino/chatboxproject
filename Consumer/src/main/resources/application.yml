@@ -1,0 +1,14 @@
+server:
+  port: 8081
+spring:
+  rabbitmq:
+    host: localhost
+    password: guest
+    port: 5672
+    username: guest
+    exchange: user.exchange
+    queue: user.queue
+    routingkey: user.queue
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/chat-box

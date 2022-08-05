@@ -1,0 +1,6 @@
+server:
+  port: ${port:9091}
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/chat-box
