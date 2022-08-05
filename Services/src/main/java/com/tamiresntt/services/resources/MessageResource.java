@@ -21,6 +21,7 @@ public class MessageResource implements Serializable {
     @Autowired
     private MessageService msgService;
 
+    //nao esta funcionando
     @GetMapping
     public ResponseEntity<List<MessageDTO>> findAll() {
         List<Message> list = msgService.findAll();

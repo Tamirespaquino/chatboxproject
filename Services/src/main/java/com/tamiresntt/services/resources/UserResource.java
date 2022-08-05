@@ -42,12 +42,14 @@ public class UserResource implements Serializable {
         return ResponseEntity.created(uri).build();
     }
 
+    // não está funcionando
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         userService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
+    //não está funcionando
     @PutMapping(value = "/{id}")
     public ResponseEntity<Void> update(@RequestBody UserDTO objDto, @PathVariable String id) {
         User obj = userService.fromDTO(objDto);

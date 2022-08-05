@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/producer/send-message")
+@RequestMapping("/send-message")
 public class ProducerController {
 
     private RabbitMQSender rabbitMQSender;
@@ -23,8 +23,7 @@ public class ProducerController {
     @Value("${app.message}")
     private String message;
 
-    // Envia mensagem para o RabbitMQ
-    @PostMapping("message")
+    @PostMapping
     public String insertMessage(@RequestBody Message msg) {
         rabbitMQSender.send(msg);
         return message;
