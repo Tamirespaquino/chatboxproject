@@ -1,4 +1,4 @@
-package com.tamiresntt.services.resources;
+package com.tamiresntt.services.controller;
 
 import com.tamiresntt.services.domain.User;
 import com.tamiresntt.services.dto.UserDTO;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/users")
-public class UserResource implements Serializable {
+public class UserController implements Serializable {
 
     @Autowired
     private UserService userService;

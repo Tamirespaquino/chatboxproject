@@ -1,4 +1,4 @@
-package com.tamiresntt.services.resources;
+package com.tamiresntt.services.controller;
 
 import com.tamiresntt.services.domain.Message;
 import com.tamiresntt.services.dto.MessageDTO;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/messages")
-public class MessageResource implements Serializable {
+public class MessageController implements Serializable {
 
     @Autowired
     private MessageService msgService;

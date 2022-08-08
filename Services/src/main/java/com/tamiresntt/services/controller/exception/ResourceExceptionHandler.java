@@ -1,4 +1,4 @@
-package com.tamiresntt.services.resources.exception;
+package com.tamiresntt.services.controller.exception;
 
 import com.tamiresntt.services.services.exception.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;

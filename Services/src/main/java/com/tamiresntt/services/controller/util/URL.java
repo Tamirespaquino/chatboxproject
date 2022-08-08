@@ -1,4 +1,4 @@
-package com.tamiresntt.services.resources.util;
+package com.tamiresntt.services.controller.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;

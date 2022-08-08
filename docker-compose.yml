@@ -23,4 +23,4 @@ services:
     volumes:
       - ~/apps/mongo:/data/db
     environment:
-      - MONGO_INITDB_DATABASE=chat=box
+      - MONGO_INITDB_DATABASE=chat-box
