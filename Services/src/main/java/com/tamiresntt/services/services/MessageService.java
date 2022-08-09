@@ -2,7 +2,7 @@ package com.tamiresntt.services.services;
 
 import com.tamiresntt.services.domain.Message;
 import com.tamiresntt.services.repository.MessageRepository;
-import com.tamiresntt.services.services.exception.ObjectNotFoundException;
+import com.tamiresntt.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

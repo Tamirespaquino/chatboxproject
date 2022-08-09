@@ -1,4 +1,4 @@
-package com.tamiresntt.services.controller.exception;
+package com.tamiresntt.services.exception;
 
 import java.io.Serializable;
 
