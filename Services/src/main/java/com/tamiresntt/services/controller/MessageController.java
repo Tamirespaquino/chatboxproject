@@ -4,6 +4,7 @@ import com.tamiresntt.services.domain.Message;
 import com.tamiresntt.services.dto.MessageDTO;
 import com.tamiresntt.services.services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +25,7 @@ public class MessageController implements Serializable {
     @GetMapping
     public ResponseEntity<List<MessageDTO>> findAll() {
         List<Message> list = msgService.findAll();
-        List<MessageDTO> listDto = list.stream().map(x -> new MessageDTO(x)).collect(Collectors.toList());
+        List<MessageDTO> listDto = list.stream().map(x -> new MessageDTO()).collect(Collectors.toList());
 
         return ResponseEntity.ok().body(listDto);
     }
@@ -32,7 +33,16 @@ public class MessageController implements Serializable {
     @GetMapping(value = "/{id}")
     public ResponseEntity<MessageDTO> findById(@PathVariable String id) {
         Message obj = msgService.findById(id);
-        return ResponseEntity.ok().body(new MessageDTO(obj));
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.add("id", obj.getId());
+        responseHeaders.add("username", obj.getUsername());
+        responseHeaders.add("begin_create_date", obj.getCreate_date().toString());
+        responseHeaders.add("end_create_date", obj.getCreate_date().toString());
+
+        return ResponseEntity.ok()
+                .headers(responseHeaders)
+                .body(new MessageDTO());
     }
 
 }

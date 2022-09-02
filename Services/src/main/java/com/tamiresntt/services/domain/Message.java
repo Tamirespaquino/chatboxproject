@@ -14,8 +14,10 @@ import java.util.Date;
 public class Message implements Serializable {
 
     private String id;
-    private String name;
     private String message;
-    private Date date;
+    private String sender;
+    private String receiver;
+    private String password;
+    private Date create_date;
 
 }

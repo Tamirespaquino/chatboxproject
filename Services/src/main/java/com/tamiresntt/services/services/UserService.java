@@ -1,6 +1,6 @@
 package com.tamiresntt.services.services;
 
-import com.tamiresntt.services.domain.User;
+import com.tamiresntt.services.domain.UserRegister;
 import com.tamiresntt.services.dto.UserDTO;
 import com.tamiresntt.services.repository.UserRepository;
 import com.tamiresntt.services.exception.ObjectNotFoundException;
@@ -16,29 +16,30 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<User> findAll() {
+    public List<UserRegister> findAll() {
         return userRepository.findAll();
     }
 
-    public User findById(String id) {
-        Optional<User> obj = userRepository.findById(id);
+    public UserRegister findById(String id) {
+        Optional<UserRegister> obj = userRepository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
     }
 
-    public User insert(User obj) {
+    public UserRegister insert(UserRegister obj) {
         return userRepository.insert(obj);
     }
 
-    public User update(User obj) {
-        User newObj = findById(obj.getId());
+    public UserRegister update(UserRegister obj) {
+        UserRegister newObj = findById(obj.getId());
         updateData(newObj, obj);
         return userRepository.save(newObj);
     }
 
-    private void updateData(User newObj, User obj) {
-        newObj.setName(obj.getName());
+    private void updateData(UserRegister newObj, UserRegister obj) {
+        newObj.setUsername(obj.getUsername());
         newObj.setEmail(obj.getEmail());
-        newObj.setCountry(obj.getCountry());
+        newObj.setCpf(obj.getCpf());
+        newObj.setAddress(obj.getAddress());
     }
 
     public void delete(String id) {
@@ -46,7 +47,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public User fromDTO(UserDTO objDto) {
-        return new User(objDto.getId(), objDto.getName(), objDto.getEmail(), objDto.getCountry());
+    public UserRegister fromDTO(UserDTO objDto) {
+        return new UserRegister();
     }
 }
