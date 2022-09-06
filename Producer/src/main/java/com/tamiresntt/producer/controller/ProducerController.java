@@ -1,13 +1,10 @@
 package com.tamiresntt.producer.controller;
 
-import com.tamiresntt.producer.domain.Message;
+import com.tamiresntt.producer.dto.MessageDTO;
 import com.tamiresntt.producer.service.RabbitMQSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/send-message")
@@ -24,8 +21,15 @@ public class ProducerController {
     private String message;
 
     @PostMapping
-    public String insertMessage(@RequestBody Message msg) {
+    public String insertMessage(@RequestBody MessageDTO msg) {
         rabbitMQSender.send(msg);
         return message;
     }
+
+    @GetMapping
+    public String insertMessage() {
+        return "cade?";
+    }
+
+
 }

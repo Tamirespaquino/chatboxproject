@@ -1,4 +1,4 @@
-package com.tamiresntt.services.dto;
+package com.tamiresntt.producer.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,14 +12,9 @@ import java.util.Date;
 @AllArgsConstructor
 public class MessageDTO implements Serializable {
 
-    private String id;
     private String message;
-    private String username;
-    private String password;
+    private String sender;
+    private String receiver;
     private Date create_date;
 
-    public MessageDTO() {
-
-    }
 }
-

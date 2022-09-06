@@ -1,11 +1,17 @@
 package com.tamiresntt.services.dto;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 
-@Data
-public class UserDTO implements Serializable {
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class UserRegisterDTO implements Serializable {
 
     private String id;
     private String username;

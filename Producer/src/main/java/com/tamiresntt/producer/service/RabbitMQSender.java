@@ -1,6 +1,7 @@
 package com.tamiresntt.producer.service;
 
 import com.tamiresntt.producer.domain.Message;
+import com.tamiresntt.producer.dto.MessageDTO;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,8 @@ public class RabbitMQSender {
     @Value("${spring.rabbitmq.routingkey}")
     private String routingkey;
 
-    public void send(Message msg) {
+    public void send(MessageDTO msg) {
+        var message = Message.create(msg.getMessage(), msg.getSender(), msg.getReceiver(), msg.getCreate_date());
         rabbitTemplate.convertAndSend(exchange, routingkey, msg);
     }
 }

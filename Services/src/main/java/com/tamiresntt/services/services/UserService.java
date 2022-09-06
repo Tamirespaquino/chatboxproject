@@ -1,7 +1,7 @@
 package com.tamiresntt.services.services;
 
 import com.tamiresntt.services.domain.UserRegister;
-import com.tamiresntt.services.dto.UserDTO;
+import com.tamiresntt.services.dto.UserRegisterDTO;
 import com.tamiresntt.services.repository.UserRepository;
 import com.tamiresntt.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +47,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public UserRegister fromDTO(UserDTO objDto) {
+    public UserRegister fromDTO(UserRegisterDTO objDto) {
         return new UserRegister();
     }
 }
