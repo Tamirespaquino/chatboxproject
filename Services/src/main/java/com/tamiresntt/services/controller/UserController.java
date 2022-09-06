@@ -19,7 +19,6 @@ public class UserController implements Serializable {
 
     @Autowired
     private UserService userService;
-
     @GetMapping
     public ResponseEntity<List<UserRegisterDTO>> findAll() {
         List<UserRegister> list = userService.findAll();
