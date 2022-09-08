@@ -1,5 +1,8 @@
 server:
   port: ${port:9091}
+jwt:
+  expiration: 1800000
+  secret: 827ccb0eea8a706c4c34a16891f84e7b
 spring:
   data:
     mongodb:

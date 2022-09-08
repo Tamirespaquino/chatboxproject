@@ -8,3 +8,9 @@ spring:
     username: guest
     exchange: user.exchange
     routingkey: user.queue
+  jwt:
+    expiration: 1800000
+    secret: 123
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/chat-box

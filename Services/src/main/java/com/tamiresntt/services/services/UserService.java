@@ -47,7 +47,14 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public UserRegister fromDTO(UserRegisterDTO objDto) {
-        return new UserRegister();
+    public UserRegister fromDTO(UserRegisterDTO objDto, UserRegister obj) {
+        obj.setId(objDto.getId());
+        obj.setAddress(objDto.getAddress());
+        obj.setCpf(objDto.getCpf());
+        obj.setEmail(objDto.getEmail());
+        obj.setUsername(objDto.getUsername());
+        obj.setPassword(objDto.getPassword());
+
+        return obj;
     }
 }

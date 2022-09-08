@@ -11,8 +11,8 @@ public class Message {
     @Id
     private String id;
     private String message;
-    private String username;
-    private String password;
+    private String sender;
+    private String receiver;
     private Date create_date;
 
 }

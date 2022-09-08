@@ -2,10 +2,9 @@ package com.tamiresntt.services;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
-@SpringBootApplication
-@ComponentScan({"org.websocket.spring"})
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 public class ServicesApplication {
 
 	public static void main(String[] args) {

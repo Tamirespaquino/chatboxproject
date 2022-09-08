@@ -33,9 +33,11 @@ public class UserController implements Serializable {
         return ResponseEntity.ok().body(new UserRegisterDTO());
     }
 
+    // user register
     @PostMapping
     public ResponseEntity<Void> insert(@RequestBody UserRegisterDTO objDto) {
-        UserRegister obj = userService.fromDTO(objDto);
+        UserRegister obj = new UserRegister();
+        userService.fromDTO(objDto, obj);
         obj = userService.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
@@ -49,7 +51,8 @@ public class UserController implements Serializable {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<Void> update(@RequestBody UserRegisterDTO objDto, @PathVariable String id) {
-        UserRegister obj = userService.fromDTO(objDto);
+        UserRegister obj = new UserRegister();
+        userService.fromDTO(objDto, obj);
         obj.setId(id);
         obj = userService.update(obj);
         return ResponseEntity.noContent().build();

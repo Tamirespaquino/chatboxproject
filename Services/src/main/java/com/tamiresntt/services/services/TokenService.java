@@ -11,8 +11,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-
-
 @Service
 public class TokenService {
 
@@ -25,15 +23,14 @@ public class TokenService {
     @Value("${jwt.secret}")
     private String secret;
 
-
     public String generateToken(Authentication authentication) {
 
-        UserRegister usuario = (UserRegister) authentication.getPrincipal();
+        UserRegister user = (UserRegister) authentication.getPrincipal();
 
         Date now = new Date();
         Date exp = new Date(now.getTime() + Long.parseLong(expiration));
 
-        return Jwts.builder().setIssuer("IRS").setSubject(usuario.getId().toString()).setIssuedAt(new Date())
+        return Jwts.builder().setIssuer("IRS").setSubject(user.getId().toString()).setIssuedAt(new Date())
                 .setExpiration(exp).signWith(SignatureAlgorithm.HS256, secret).compact();
     }
 
