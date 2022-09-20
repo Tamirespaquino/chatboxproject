@@ -1,10 +1,18 @@
 package com.tamiresntt.services.controller;
 
 import com.tamiresntt.services.domain.UserRegister;
+import com.tamiresntt.services.dto.TokenDTO;
+import com.tamiresntt.services.dto.UserLoginDTO;
 import com.tamiresntt.services.dto.UserRegisterDTO;
+import com.tamiresntt.services.services.TokenService;
 import com.tamiresntt.services.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -17,8 +25,46 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/users")
 public class UserController implements Serializable {
 
-    @Autowired
-    private UserService userService;
+    private final AuthenticationManager authenticationManager;
+    private final TokenService tokenService;
+    private final UserService userService;
+   // private final PasswordEncoder encoder;
+
+    public UserController(AuthenticationManager authenticationManager, TokenService tokenService, UserService userService, PasswordEncoder encoder) {
+        this.authenticationManager = authenticationManager;
+        this.tokenService = tokenService;
+        this.userService = userService;
+       // this.encoder = encoder;
+    }
+
+    // register - cadastrar usuario
+    @PostMapping(value = "/register")
+    public ResponseEntity<Void> register(@RequestBody UserRegisterDTO objDto) {
+        UserRegister obj = new UserRegister();
+        userService.fromDTO(objDto, obj);
+        obj = userService.insert(obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).build();
+    }
+
+    // login - login do usuario com autenticacao de senha e cadastro
+    @PostMapping(value = "/login")
+    public ResponseEntity<?> login(@RequestBody @Validated UserLoginDTO loginDTO){
+
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword());
+
+        try {
+            Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+
+            String token = tokenService.generateToken(authentication);
+
+            return ResponseEntity.ok(TokenDTO.builder().type("Bearer").token(token).build());
+        } catch (AuthenticationException ex) {
+            return ResponseEntity.badRequest().body(ex);
+        }
+    }
+
+    // findAll - lista todos usuarios
     @GetMapping
     public ResponseEntity<List<UserRegisterDTO>> findAll() {
         List<UserRegister> list = userService.findAll();
@@ -27,28 +73,21 @@ public class UserController implements Serializable {
         return ResponseEntity.ok().body(listDto);
     }
 
+    // findById - encontra por Id (retirar?)
     @GetMapping(value = "/{id}")
     public ResponseEntity<UserRegisterDTO> findById(@PathVariable String id) {
         UserRegister obj = userService.findById(id);
         return ResponseEntity.ok().body(new UserRegisterDTO());
     }
 
-    // user register
-    @PostMapping
-    public ResponseEntity<Void> insert(@RequestBody UserRegisterDTO objDto) {
-        UserRegister obj = new UserRegister();
-        userService.fromDTO(objDto, obj);
-        obj = userService.insert(obj);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(obj.getId()).toUri();
-        return ResponseEntity.created(uri).build();
-    }
-
+    // delete - deleta usuario do BD
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         userService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
+    // update - altera informacoes do usuario
     @PutMapping(value = "/{id}")
     public ResponseEntity<Void> update(@RequestBody UserRegisterDTO objDto, @PathVariable String id) {
         UserRegister obj = new UserRegister();

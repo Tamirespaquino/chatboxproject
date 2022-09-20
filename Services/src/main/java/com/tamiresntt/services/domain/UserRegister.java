@@ -9,7 +9,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -25,21 +24,9 @@ public class UserRegister implements UserDetails {
     private String cpf;
     private String address;
 
-    private Set<Perfil> perfis;
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.perfis;
-    }
-
-    @Override
-    public String getPassword() {
-        return this.password;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.email;
+        return null;
     }
 
     @Override

@@ -6,9 +6,9 @@ import axios from "axios";
 const Auth = () => {
   const {
     username,
-    secret,
+    password,
     setUsername,
-    setSecret
+    setPassword
   } = useContext(Context);
 
   const router = useRouter();
@@ -18,17 +18,18 @@ const Auth = () => {
     e.preventDefault()
 
     //verifica se o usuario digitou alguma senha ou id
-    if (username.length === 1 || secret.length === 1) return
+    if (username.length === 1 || password.length === 1) return
 
     //colocar a url de conexao com o back-end. Aqui, eh do login do usuario
     axios
-      .put(
-        'http://localhost:8080/chats',
-        {username, secret},
-        {headers: {"Private-key": 'UUID gerado no service'}}
+      .post(
+        'http://localhost:9091/users/login',
+        {username:username, password:password},
+        //{headers: {"Private-key": 'UUID gerado no service'}}
       )
       
-      .then((r) => {
+      .then((r) => { 
+        localStorage.setItem('apiToken', r.data.token);
         router.push('/chats');
       });
   }
@@ -52,11 +53,12 @@ const Auth = () => {
             type="password"
             placeholder="Password"
             className="text-input"
-            onChange={(e) => setSecret(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
-          <button type="submit" className="submit-button">Login / Sign Up</button>
+          <button type="submit" className="submit-button">Login</button>
+          <button type="submit" className="submit-button">Sign Up</button>
 
         </form>
       </div>

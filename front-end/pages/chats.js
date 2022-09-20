@@ -4,30 +4,30 @@ import { useRouter } from "next/dist/client/router";
 import dynamic from "next/dynamic";
 
 const ChatEngine = dynamic(() => 
-    import("react-chat-engine").then((module) => module.MessageFormSocial)
+    import("react-chat-engine").then((module) => module.ChatEngine)
 );
 
 const MessageFormSocial = dynamic(() => 
     import("react-chat-engine").then((module) => module.MessageFormSocial)
 );
 
-export default function Chats() {
-    const { username, secret } = useContext(Context)
+export default function Home() {
+    const { username, password } = useContext(Context)
     const [showChat, setShowChat] = useState(false);
-    const router = useRouter()
+    const router = useRouter();
 
     useEffect(() => {
-        if (typeof document !== null) {
-            setShowChat(true)
+        if (typeof document !== undefined) {
+            setShowChat(true);
         }
     }, []);
 
     useEffect(() => {
-        if(username === "" || secret === "") {
+        if(username === "" || password === "") {
             router.push("/");
         }
     
-    }, [username, secret]);
+    }, [username, password]);
 
     if(!showChat) return <div />;
 
@@ -35,10 +35,10 @@ export default function Chats() {
         <div className="background">
             <div className="shadow">
                 <ChatEngine
-                    height="calc(100vh - 200px)"
+                    height="calc(100vh - 212px)"
                     projectID="" //id do projeto? nao entendi mto bem porque ele pega de um engine pronto
                     userName={username}
-                    userSecret={secret}
+                    userPassword={password}
                     renderNewMessageForm={() => <MessageFormSocial />}
                 />
             </div>

@@ -5,6 +5,7 @@ import com.tamiresntt.services.dto.UserRegisterDTO;
 import com.tamiresntt.services.repository.UserRepository;
 import com.tamiresntt.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,9 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public List<UserRegister> findAll() {
         return userRepository.findAll();
     }
@@ -26,6 +30,7 @@ public class UserService {
     }
 
     public UserRegister insert(UserRegister obj) {
+        obj.setPassword(passwordEncoder.encode(obj.getPassword()));
         return userRepository.insert(obj);
     }
 

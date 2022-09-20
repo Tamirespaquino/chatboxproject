@@ -3,7 +3,6 @@ package com.tamiresntt.services.filter;
 import com.tamiresntt.services.domain.UserRegister;
 import com.tamiresntt.services.repository.UserRepository;
 import com.tamiresntt.services.services.TokenService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -17,12 +16,13 @@ import java.util.Optional;
 
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
-    @Autowired
-    TokenService tokenService;
+    private final TokenService tokenService;
+    private final UserRepository repository;
 
-    @Autowired
-    UserRepository repository;
-
+    public TokenAuthenticationFilter(TokenService tokenService, UserRepository repository) {
+        this.tokenService = tokenService;
+        this.repository = repository;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -31,9 +31,9 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
         if(token == null || token.isEmpty() || !token.startsWith("Bearer")) {
             token = null;
+        } else {
+            token = token.substring(7, token.length());
         }
-
-        token = token.substring(7, token.length());
 
         filterChain.doFilter(request, response);
     }
@@ -47,7 +47,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
             UserRegister user = optionalUser.get();
 
-            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user, null, user.getPerfis());
+            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user, null);
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
         }
     }
