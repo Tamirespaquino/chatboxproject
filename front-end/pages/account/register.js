@@ -27,12 +27,10 @@ const Auth = () => {
     //verifica se o usuario digitou alguma senha ou id
     if (username.length === 1 || password.length === 1) return
 
-    //colocar a url de conexao com o back-end. Aqui, eh do cadastro do usuario
     axios
       .post(
         'http://localhost:9091/users/register',
-        {id:id, username:username, password:password, email:email, cpf:cpf, address:address},
-        //{headers: {"Private-key": 'UUID gerado no service'}}
+        {id:id, username:username, password:password, email:email, cpf:cpf, address:address}
       )
       
       .then((r) => { 
@@ -44,7 +42,7 @@ const Auth = () => {
   return (
 
     <div className="background">
-      <div className="auth-container">
+      <div className="auth-container-register">
 
          {/* Register */}
         <form className="auth-form" onRegister={(e) => onRegister(e)}>
@@ -93,7 +91,7 @@ const Auth = () => {
             onChange={(e) => setAddress(e.target.value)}
             />
           </div>
-          <button type="submit" className="submit-button">Send</button>
+          <button type="submit" className="submit-only-button">Send</button>
 
         </form>
       </div>

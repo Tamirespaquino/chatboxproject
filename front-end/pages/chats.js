@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Context } from "../../context";
+import { Context } from "../context";
 import { useRouter } from "next/dist/client/router";
 import dynamic from "next/dynamic";
 
@@ -24,7 +24,7 @@ export default function Home() {
 
     useEffect(() => {
         if(username === "" || password === "") {
-            router.push("/");
+           // router.push("/");
         }
     
     }, [username, password]);
@@ -36,7 +36,6 @@ export default function Home() {
             <div className="shadow">
                 <ChatEngine
                     height="calc(100vh - 212px)"
-                    // projectID="" //id do projeto? nao entendi mto bem porque ele pega de um engine pronto
                     userName={username}
                     userPassword={password}
                     renderNewMessageForm={() => <MessageFormSocial />}

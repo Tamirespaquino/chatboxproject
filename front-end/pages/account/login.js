@@ -19,12 +19,10 @@ const Auth = () => {
     //verifica se o usuario digitou alguma senha ou id
     if (username.length === 1 || password.length === 1) return
 
-    //colocar a url de conexao com o back-end. Aqui, eh do login do usuario
     axios
       .post(
         'http://localhost:9091/users/login',
-        {username:username, password:password},
-        //{headers: {"Private-key": 'UUID gerado no service'}}
+        {username:username, password:password}
       )
       
       .then((r) => { 
@@ -59,8 +57,9 @@ const Auth = () => {
           </div>
 
           <button type="submit" className="submit-button">Sign in</button>
-          <div></div>
-          <button href="/register" type="submit" className="submit-button">Sign up</button>
+          <button type="submit" className="submit-button">
+            <a href="/account/register">Sign up</a>
+          </button>        
         </form>
       </div>
     </div>    
