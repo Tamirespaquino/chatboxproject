@@ -18,6 +18,8 @@ public class UserRegister implements UserDetails {
 
     @Id
     private String id;
+    private String firstname;
+    private String lastname;
     private String username;
     private String password;
     private String email;
