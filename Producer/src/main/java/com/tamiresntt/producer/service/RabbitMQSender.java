@@ -6,6 +6,8 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class RabbitMQSender {
 
@@ -21,7 +23,10 @@ public class RabbitMQSender {
     private String routingkey;
 
     public void send(MessageDTO msg) {
-        var message = Message.create(msg.getMessage(), msg.getSender(), msg.getReceiver(), msg.getCreate_date());
+
+        LocalDateTime date = msg.getCreateDate().now();
+
+        var message = Message.create(msg.getMessage(), msg.getSender(), msg.getReceiver(), date);
         rabbitTemplate.convertAndSend(exchange, routingkey, msg);
     }
 }

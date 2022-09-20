@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -15,6 +15,9 @@ public class MessageDTO implements Serializable {
     private String message;
     private String sender;
     private String receiver;
-    private Date create_date;
+    private LocalDateTime create_date;
 
+    public LocalDateTime getCreateDate() {
+        return null;
+    }
 }
