@@ -16,7 +16,7 @@ public class MessageDTO implements Serializable {
     private String message;
     private String username;
     private String password;
-    private Date create_date;
+    private Date createDate;
 
     public MessageDTO() {
 
