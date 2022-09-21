@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 @Service
 public class RabbitMQSender {
@@ -24,9 +26,13 @@ public class RabbitMQSender {
 
     public void send(MessageDTO msg) {
 
-        LocalDateTime date = msg.getCreateDate().now();
+        LocalDateTime date = LocalDateTime.now();
 
-        var message = Message.create(msg.getMessage(), msg.getSender(), msg.getReceiver(), date);
-        rabbitTemplate.convertAndSend(exchange, routingkey, msg);
+        var zdt = ZonedDateTime.of(date, ZoneId.systemDefault());
+        long dateLong = zdt.toInstant().toEpochMilli();
+
+        var message = Message.create(msg.getMessage(), msg.getSender(), msg.getReceiver(), dateLong);
+
+        rabbitTemplate.convertAndSend(exchange, routingkey, message);
     }
 }

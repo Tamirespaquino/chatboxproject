@@ -1,11 +1,13 @@
 package com.tamiresntt.consumer.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
-import java.util.Date;
-
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Message {
 
     @Id
@@ -13,6 +15,18 @@ public class Message {
     private String message;
     private String sender;
     private String receiver;
-    private Date create_date;
+    private Long createDate;
 
+    public Message(String message, String sender, String receiver, Long createDate) {
+
+        this.message = message;
+        this.sender = sender;
+        this.sender = receiver;
+        this.createDate = createDate;
+    }
+
+    public static Message create(String message, String sender, String receiver, Long createDate) {
+
+        return new Message(message, sender, receiver, createDate);
+    }
 }

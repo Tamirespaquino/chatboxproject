@@ -1,6 +1,7 @@
 package com.tamiresntt.consumer.service;
 
 import com.tamiresntt.consumer.domain.Message;
+import com.tamiresntt.consumer.dto.MessageDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -21,10 +22,24 @@ public class RabbitMQReceiver implements RabbitListenerConfigurer {
 
     @RabbitListener(queues = {"${spring.rabbitmq.queue}"})
     public void receivedMessage(@Payload Message message) {
-        logger.info("Message received is " + message);
-        messageService.saveMsg(message);
-    }
 
+        try {
+
+            logger.info("Message received is " + message);
+            messageService.saveMsg(message);
+
+        } catch(Exception e) {
+
+            MessageDTO messageDto = new MessageDTO (
+                    message.getMessage(),
+                    message.getSender(),
+                    message.getReceiver(),
+                    message.getCreateDate()
+            );
+
+            messageService.sendToDlq(messageDto);
+        }
+    }
     @Override
     public void configureRabbitListeners(RabbitListenerEndpointRegistrar rabbitListenerEndpointRegistrar) {
     }

@@ -15,9 +15,9 @@ public class MessageDTO implements Serializable {
     private String message;
     private String sender;
     private String receiver;
-    private LocalDateTime create_date;
+    private LocalDateTime createDate;
 
     public LocalDateTime getCreateDate() {
-        return null;
+        return createDate;
     }
 }

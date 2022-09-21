@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Context } from "../context";
+import { Context } from "../../context";
 import { useRouter } from "next/dist/client/router";
 import dynamic from "next/dynamic";
 

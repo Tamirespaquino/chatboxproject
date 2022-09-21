@@ -22,6 +22,7 @@ public class UserRegister implements UserDetails {
     private String lastname;
     private String username;
     private String password;
+    private String confirmPassword;
     private String email;
     private String cpf;
     private String address;

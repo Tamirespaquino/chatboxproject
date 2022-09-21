@@ -3,15 +3,25 @@ package com.tamiresntt.consumer.dto;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 
 @Data
 public class MessageDTO implements Serializable {
 
-    private String id;
     private String message;
     private String sender;
     private String receiver;
-    private Date create_date;
+    private Long createDate;
+
+
+    public MessageDTO(String message, String sender, String receiver, Long createDate) {
+        this.message = message;
+        this.sender = sender;
+        this.receiver = receiver;
+        this.createDate = createDate;
+    }
+
+    public Long getCreateDate() {
+        return createDate;
+    }
 
 }

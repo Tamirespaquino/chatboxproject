@@ -27,17 +27,17 @@ public class MessageController implements Serializable {
         return ResponseEntity.ok().body(listDto);
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<MessageDTO> findById(
+    @GetMapping() // passar no header do axios do front
+    public ResponseEntity<List<MessageDTO>> findById(
             @RequestHeader(value = "username") String user,
-            @RequestHeader(value = "id") @PathVariable String id,
+            @RequestHeader(value = "id") String id,
             @RequestHeader(value = "begin_create_date") LocalDateTime beginDate,
             @RequestHeader(value = "end_create_date") LocalDateTime endDate) {
 
-
-        Message obj = msgService.findById(id);
+        // colocar um if ou algo assim para exigir pelo menos um negocio
+        Message obj = msgService.findById(id); // criar outro método chamado findByFilter e passar todos os parametros. Sempre considerar o id, mas os outros nao
         return ResponseEntity.ok()
-                .body(new MessageDTO());
+                .body(new MessageDTO()); // retornar uma lista de mensagens no service
     }
 
 }

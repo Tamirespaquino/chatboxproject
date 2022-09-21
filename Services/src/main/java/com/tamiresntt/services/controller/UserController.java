@@ -14,10 +14,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.Serializable;
-import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,11 +38,10 @@ public class UserController implements Serializable {
     // register - cadastrar usuario
     @PostMapping(value = "/register")
     public ResponseEntity<Void> register(@RequestBody UserRegisterDTO objDto) {
-        UserRegister obj = new UserRegister();
-        userService.fromDTO(objDto, obj);
-        obj = userService.insert(obj);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(obj.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+
+        userService.insert(objDto);
+
+        return ResponseEntity.ok().build();
     }
 
     // login - login do usuario com autenticacao de senha e cadastro
