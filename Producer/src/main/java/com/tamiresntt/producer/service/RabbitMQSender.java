@@ -28,7 +28,7 @@ public class RabbitMQSender {
 
         LocalDateTime date = LocalDateTime.now();
 
-        var zdt = ZonedDateTime.of(date, ZoneId.systemDefault());
+        var zdt = ZonedDateTime.of(date, ZoneId.of("America/Sao_Paulo"));
         long dateLong = zdt.toInstant().toEpochMilli();
 
         var message = Message.create(msg.getMessage(), msg.getSender(), msg.getReceiver(), dateLong);

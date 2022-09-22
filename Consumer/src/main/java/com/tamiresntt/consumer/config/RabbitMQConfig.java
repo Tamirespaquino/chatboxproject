@@ -31,7 +31,7 @@ public class RabbitMQConfig {
 
     @Bean
     public Queue queue() {
-        return new Queue(QUEUE, true);
+        return new Queue(QUEUE, false);
     }
 
     @Bean
@@ -45,7 +45,7 @@ public class RabbitMQConfig {
     }
     @Bean
     public Queue dlqQueue() {
-        return new Queue(DEAD_LETTER_QUEUE, true);
+        return new Queue(DEAD_LETTER_QUEUE, false);
     }
 
     @Bean
@@ -67,6 +67,7 @@ public class RabbitMQConfig {
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
         factory.setConnectionFactory(cachingConnectionFactory);
         factory.setMessageConverter(jsonMessageConverter());
+
         return factory;
     }
 

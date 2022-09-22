@@ -3,6 +3,8 @@ package com.tamiresntt.services.filter;
 import com.tamiresntt.services.domain.UserRegister;
 import com.tamiresntt.services.repository.UserRepository;
 import com.tamiresntt.services.services.TokenService;
+import io.jsonwebtoken.Jwts;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -18,6 +20,9 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     private final TokenService tokenService;
     private final UserRepository repository;
+
+    @Value("${jwt.secret}")
+    private String secret;
 
     public TokenAuthenticationFilter(TokenService tokenService, UserRepository repository) {
         this.tokenService = tokenService;
@@ -35,9 +40,31 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             token = token.substring(7, token.length());
         }
 
+        if(token.isValid)
         filterChain.doFilter(request, response);
     }
 
+    public boolean isValid(String token) {
+
+        System.out.println(token);
+
+        try{
+            Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token);
+            return true;
+        }catch(Exception ex){
+            return false;
+        }
+    }
+
+    /*private void autenticateUser(String token) {
+
+        String idUser = tokenService.getTokenId(token);
+
+        UserRegister user = repository.findById(idUser).get();
+        System.out.println(user.getUsername());
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null,null);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+    }*/
     private void authenticate(String tokenFromHeader) {
         String id = tokenService.getTokenId(tokenFromHeader);
 

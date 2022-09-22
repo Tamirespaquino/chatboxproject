@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -36,7 +35,6 @@ public class UserRegisterDTO implements Serializable {
     private String email;
 
     @NotBlank
-    @CPF
     private String cpf;
 
     @NotBlank

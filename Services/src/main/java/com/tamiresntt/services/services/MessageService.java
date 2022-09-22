@@ -4,12 +4,15 @@ import com.tamiresntt.services.domain.Message;
 import com.tamiresntt.services.dto.MessageDTO;
 import com.tamiresntt.services.exception.ObjectNotFoundException;
 import com.tamiresntt.services.repository.MessageRepository;
+import com.tamiresntt.services.utils.DateConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MessageService {
@@ -24,19 +27,23 @@ public class MessageService {
         return obj.orElseThrow(() -> new ObjectNotFoundException("Mensagem nao encontrada"));
     }
 
-    public List<MessageDTO> findByFilter(String id, String message, String username, String password, Date createDate) {
+    public List<MessageDTO> findByFilter(String id, String username, LocalDateTime beginDate, LocalDateTime endDate) {
 
-        if (message.isEmpty() || username.isEmpty() || password.isEmpty() || createDate == null) {
-            Optional<Message> obj = msgRepository.findById(id);
-            return List<obj>;
+        if (username == null || beginDate == null || endDate == null) {
+
+            var msg = msgRepository.findById(id);
+            var listMessage = new ArrayList<MessageDTO>();
+            listMessage.add(MessageDTO.converter(msg.get().getMessage(), msg.get().getSender(), msg.get().getReceiver(), DateConverter.toLocalDateTime(msg.get().getCreateDate())));
+
+            return listMessage;
         }
 
+        List<Message> obj = msgRepository.findByFilter(id, username, beginDate, endDate);
 
-        Optional<Message> obj = msgRepository.find;
+        if (obj.isEmpty())
+            throw new ObjectNotFoundException("Mensagem nao encontrada");
 
-        return obj.orElseThrow(() -> new ObjectNotFoundException("Mensagem nao encontrada"));
+        return obj.stream().map(MessageDTO::new).collect(Collectors.toList());
     }
-
-    // criar outro método chamado findByFilter e passar todos os parametros. Sempre considerar o id, mas os outros nao
 
 }

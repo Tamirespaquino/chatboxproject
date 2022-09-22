@@ -32,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     // Config for authentication
 
+    @Override
     @Bean
     public AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
@@ -43,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(authenticationService).passwordEncoder(new BCryptPasswordEncoder());
+        auth.userDetailsService(authenticationService).passwordEncoder(passwordEncoder());
 
     }
 
@@ -56,8 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().addFilterBefore(new TokenAuthenticationFilter(tokenService, userRepository), UsernamePasswordAuthenticationFilter.class)
-                .cors();
+                .and().addFilterBefore(new TokenAuthenticationFilter(tokenService, userRepository), UsernamePasswordAuthenticationFilter.class);
     }
 
     // Config for static resources

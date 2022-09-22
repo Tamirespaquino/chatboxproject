@@ -6,7 +6,6 @@ import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
-import java.util.Date;
 
 @Data
 @Component
@@ -15,8 +14,8 @@ public class Message implements Serializable {
 
     private String id;
     private String message;
-    private String username;
-    private String password;
-    private Date createDate;
+    private String sender;
+    private String receiver;
+    private Long createDate;
 
 }
