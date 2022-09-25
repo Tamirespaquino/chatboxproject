@@ -11,7 +11,7 @@ export default function ChatRoom() {
     const [publicChats, setPublicChats] = useState([]);
     const [tab, setTab] = useState("CHATROOM");    
     const [userData, setUserData] = useState({
-        sender: '',
+        username: '',
         receiver: '',
         connected: false,
         message: ''
@@ -30,7 +30,7 @@ export default function ChatRoom() {
     const onConnected = () => {
         setUserData({...userData, "connected":true});
         stompClient.subscribe('/chatroom/public', onMessageReceived);
-        stompClient.subscribe('user'+ userData.username + '/private', onPrivateMessaage);
+        stompClient.subscribe('/user/'+ userData.username + '/private', onPrivateMessaage);
     }
 
     const userJoin = () => {
@@ -102,7 +102,7 @@ export default function ChatRoom() {
                 status: "MESSAGE"
             };
 
-            if(userData.userData !== tab) {
+            if(userData.username !== tab) {
                 privateChats.get(tab).push(chatMessage);
                 setPrivateChats(new Map(privateChats));
             }
@@ -135,7 +135,7 @@ export default function ChatRoom() {
                 {tab==="CHATROOM" && <div className="chat-content">
                     <ul className="chat-message">
                         {publicChats.map((chat, index) => {
-                            <li className={`message ${chat.sender === userData.user && "self"}`} key={index}>
+                            <li className={`message ${chat.sender === userData.username && "self"}`} key={index}>
                                 {chat.sender !== userData.username && <div className="avatar">{chat.sender}</div>}
                                 <div className="message-data">{chat.message}</div>
                                 {chat.sender === userData.username && <div className="avatar self">{chat.sender}</div>}
