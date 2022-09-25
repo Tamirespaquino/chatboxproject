@@ -40,7 +40,9 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             token = token.substring(7, token.length());
         }
 
-        if(token.isValid)
+        if(isValid(token))
+            authenticate(token);
+
         filterChain.doFilter(request, response);
     }
 

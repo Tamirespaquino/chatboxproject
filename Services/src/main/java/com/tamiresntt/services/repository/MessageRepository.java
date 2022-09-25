@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface MessageRepository extends MongoRepository<Message, String> {
 
-    @Query("{'id':?0,'username':?1,'beginDate':?2,'endDate':?3}")
+    @Query("{$and : [ { $or:[ $where: '?0 == null' },{'id':?0 } ]},{ $or:[ $where: '?1 == null' },{'username':?1 } ]}    ]}")
     public List<Message> findByFilter(String id, String username, LocalDateTime beginDate, LocalDateTime endDate);
 
 }
