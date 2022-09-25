@@ -1,8 +1,12 @@
 package com.tamiresntt.producer.domain;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
 public class Message {
 
     private String id;

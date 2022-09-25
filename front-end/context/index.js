@@ -9,6 +9,10 @@ export const ContextProvider = (props) => {
     const [email, setEmail] = useState("");
     const [cpf, setCpf] = useState("");
     const [address, setAddress] = useState("");
+    const [privateChats, setPrivateChats] = useState("");
+    const [publicChats, setPublicChats] = useState("");
+    const [tab, setTab] = useState("");
+    const [userData, setUserData] = useState("");
 
     const value = {
         id,
@@ -22,7 +26,15 @@ export const ContextProvider = (props) => {
         cpf,
         setCpf,
         address,
-        setAddress
+        setAddress,
+        privateChats,
+        setPrivateChats,
+        publicChats,
+        setPublicChats,
+        tab,
+        setTab,
+        userData,
+        setUserData
     };
 
     return <Context.Provider value={value}>{props.children}</Context.Provider>;
