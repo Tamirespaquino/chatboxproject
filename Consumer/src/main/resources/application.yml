@@ -9,6 +9,14 @@ spring:
     exchange: user.exchange
     queue: user.queue
     routingkey: user.queue
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 3s
+          max-attempts: 2
+          max-interval: 10s
+          multiplier: 2
   data:
     mongodb:
       uri: mongodb://localhost:27017/chat-box

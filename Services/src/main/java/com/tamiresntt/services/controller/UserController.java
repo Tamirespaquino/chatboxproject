@@ -26,13 +26,12 @@ public class UserController implements Serializable {
     private final AuthenticationManager authenticationManager;
     private final TokenService tokenService;
     private final UserService userService;
-   // private final PasswordEncoder encoder;
 
     public UserController(AuthenticationManager authenticationManager, TokenService tokenService, UserService userService, PasswordEncoder encoder) {
         this.authenticationManager = authenticationManager;
         this.tokenService = tokenService;
         this.userService = userService;
-       // this.encoder = encoder;
+        // this.encoder = encoder;
     }
 
     // register - cadastrar usuario
@@ -46,7 +45,7 @@ public class UserController implements Serializable {
 
     // login - login do usuario com autenticacao de senha e cadastro
     @PostMapping(value = "/login")
-    public ResponseEntity<?> login(@RequestBody @Validated UserLoginDTO loginDTO){
+    public ResponseEntity<?> login(@RequestBody @Validated UserLoginDTO loginDTO) {
 
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword());
 
@@ -60,6 +59,7 @@ public class UserController implements Serializable {
             return ResponseEntity.badRequest().body(ex);
         }
     }
+
 
     // findAll - lista todos usuarios
     @GetMapping

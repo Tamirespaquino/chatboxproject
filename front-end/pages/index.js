@@ -11,8 +11,8 @@ function Home() {
                 <form className="auth-form">
                     <div className="auth-title">Welcome to ChatApp!</div>
                     <button type="submit" className="submit-only-button">
-                        <a href="/account/login">Login</a>
-                    </button>   
+                        <a href="/login">Login</a>
+                    </button>
                 </form>                     
             </div>
         </div>

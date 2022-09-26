@@ -1,16 +1,20 @@
 import React, { useContext } from "react";
-import { Context } from "../../context";
+import { Context } from "../context";
 import { Router, useRouter } from "next/dist/client/router";
 import axios from "axios";
 
 const Auth = () => {
   const {
-    id,
-    setId,
+    firstname,
+    setFirstname,
+    lastname,
+    setLastname,
     username,
     setUsername,
     password,
     setPassword,
+    confirmPassword,
+    setConfirmPassword,
     email,
     setEmail,
     cpf,
@@ -25,17 +29,17 @@ const Auth = () => {
     e.preventDefault()
 
     //verifica se o usuario digitou alguma senha ou id
-    if (username.length === 1 || password.length === 1) return
+    if (username.length === 1 || password.length === 1 || confirmPassword.length === 1) return
 
     axios
       .post(
         'http://localhost:9091/users/register',
-        {id:id, username:username, password:password, email:email, cpf:cpf, address:address}
+        {firstname:firstName, lastname:lastName, username:username, password:password, confirmPassword:confirmPassword, email:email, cpf:cpf, address:address}
       )
       
       .then((r) => { 
         localStorage.setItem('apiToken', r.data.token);
-        router.push('/');
+        router.push('/account/login');
       });
   }
 
@@ -50,9 +54,16 @@ const Auth = () => {
 
           <div className="input-container">
             <input
-            placeholder="Id"
+            placeholder="First name"
             className="text-input"
-            onChange={(e) => setId(e.target.value)}
+            onChange={(e) => setFirstname(e.target.value)}
+            />
+          </div>
+          <div className="input-container">
+            <input
+            placeholder="Last name"
+            className="text-input"
+            onChange={(e) => setLastname(e.target.value)}
             />
           </div>
           <div className="input-container">
@@ -68,6 +79,14 @@ const Auth = () => {
             placeholder="Password"
             className="text-input"
             onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <div className="input-container">
+            <input
+            type="password"
+            placeholder="Confirm password"
+            className="text-input"
+            onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
           <div className="input-container">
@@ -91,8 +110,9 @@ const Auth = () => {
             onChange={(e) => setAddress(e.target.value)}
             />
           </div>
-          <button type="submit" className="submit-only-button">Send</button>
-
+          <button type="submit" className="submit-only-button">
+            <a href="/login">Send</a>
+          </button>
         </form>
       </div>
     </div>

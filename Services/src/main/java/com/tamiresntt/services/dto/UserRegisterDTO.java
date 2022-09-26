@@ -39,5 +39,4 @@ public class UserRegisterDTO implements Serializable {
 
     @NotBlank
     private String address;
-
 }

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Context } from "../../context";
+import { Context } from "../context";
 import { Router, useRouter } from "next/dist/client/router";
 import axios from "axios";
 
@@ -58,7 +58,7 @@ const Auth = () => {
 
           <button type="submit" className="submit-button">Sign in</button>
           <button type="submit" className="submit-button">
-            <a href="/account/register">Sign up</a>
+            <a href="/register">Sign up</a>
           </button>        
         </form>
       </div>

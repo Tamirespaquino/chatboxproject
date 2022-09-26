@@ -5,7 +5,10 @@ export const Context = createContext();
 export const ContextProvider = (props) => {
     const [id, setId] = useState("");
     const [username, setUsername] = useState("");
+    const [firstname, setFirstname] = useState("");
+    const [lastname, setLastname] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [email, setEmail] = useState("");
     const [cpf, setCpf] = useState("");
     const [address, setAddress] = useState("");
@@ -17,10 +20,16 @@ export const ContextProvider = (props) => {
     const value = {
         id,
         setId,
+        firstname,
+        setFirstname,
+        lastname,
+        setLastname,
         username,
         setUsername,
         password,
         setPassword,
+        confirmPassword,
+        setConfirmPassword,
         email,
         setEmail,
         cpf,
