@@ -18,7 +18,7 @@ public class Message {
     private Message (String message, String sender, String receiver, Long createDate) {
         this.message = message;
         this.sender = sender;
-        this.sender = receiver;
+        this.receiver = receiver;
         this.createDate = createDate;
     }
 

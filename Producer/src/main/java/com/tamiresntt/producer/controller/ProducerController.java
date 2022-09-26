@@ -22,14 +22,8 @@ public class ProducerController {
 
     @PostMapping
     public String insertMessage(@RequestBody MessageDTO msg) {
+        System.out.println("mensagem" + msg);
         rabbitMQSender.send(msg);
         return message;
     }
-
-    @GetMapping
-    public String insertMessage() {
-        return "cade?";
-    }
-
-
 }

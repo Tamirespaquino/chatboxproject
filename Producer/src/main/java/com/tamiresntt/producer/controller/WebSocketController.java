@@ -16,6 +16,7 @@ public class WebSocketController {
     @MessageMapping(value = "/message")
     @SendTo(value = "/chatroom/public")
     public MessageDTO receiveMessage(@Payload MessageDTO message) throws InterruptedException {
+        System.out.println(message.toString());
         return message;
     }
 

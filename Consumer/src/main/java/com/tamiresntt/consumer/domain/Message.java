@@ -21,7 +21,7 @@ public class Message {
 
         this.message = message;
         this.sender = sender;
-        this.sender = receiver;
+        this.receiver = receiver;
         this.createDate = createDate;
     }
 
