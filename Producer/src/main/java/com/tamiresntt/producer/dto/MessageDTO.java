@@ -3,7 +3,6 @@ package com.tamiresntt.producer.dto;
 import lombok.*;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -16,9 +15,9 @@ public class MessageDTO implements Serializable {
     private String sender;
     private String receiver;
     public Status status;
-    private LocalDateTime createDate;
+    private String createDate;
 
-    public LocalDateTime getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 }

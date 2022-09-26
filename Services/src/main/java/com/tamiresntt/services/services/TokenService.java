@@ -21,7 +21,7 @@ public class TokenService {
     private String expiration;
 
     @Value("${jwt.secret}")
-    private String secret;
+    private String secret = "827ccb0eea8a706c4c34a16891f84e7b";
 
     public String generateToken(Authentication authentication) {
 
@@ -39,9 +39,10 @@ public class TokenService {
 
     public boolean isTokenValid(String token) {
         try {
-            Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
+            Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token);
             return true;
         } catch (Exception e) {
+            System.out.println("erro do token valid " + e);
             return false;
         }
     }

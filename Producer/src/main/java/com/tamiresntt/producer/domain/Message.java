@@ -13,16 +13,16 @@ public class Message {
     private String message;
     private String sender;
     private String receiver;
-    private Long createDate;
+    private String createDate;
 
-    private Message (String message, String sender, String receiver, Long createDate) {
+    private Message (String message, String sender, String receiver, String createDate) {
         this.message = message;
         this.sender = sender;
         this.receiver = receiver;
         this.createDate = createDate;
     }
 
-    public static Message create(String message, String sender, String receiver, Long createDate) {
+    public static Message create(String message, String sender, String receiver, String createDate) {
         return new Message(message, sender, receiver, createDate);
     }
 }

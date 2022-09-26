@@ -1,7 +1,6 @@
 package com.tamiresntt.services.dto;
 
 import com.tamiresntt.services.domain.Message;
-import com.tamiresntt.services.utils.DateConverter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,7 +28,7 @@ public class MessageDTO implements Serializable {
         this.message = message.getMessage();
         this.sender = message.getSender();
         this.receiver = message.getReceiver();
-        this.createDate = DateConverter.toLocalDateTime(message.getCreateDate());
+        this.createDate = message.getCreateDate();
     }
 
     public static MessageDTO converter(String message, String sender, String receiver, String createDate) {

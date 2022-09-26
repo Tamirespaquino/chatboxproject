@@ -65,47 +65,4 @@ public class RabbitMQConfig {
         rabbitTemplate.setMessageConverter(jsonMessageConverter());
         return rabbitTemplate;
     }
-
-
-    /*@Bean
-    public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory() {
-        SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
-        factory.setConnectionFactory(cachingConnectionFactory);
-        factory.setMessageConverter(jsonMessageConverter());
-
-        return factory;
-    }
-
-    @Bean
-    public Queue outgoingQueue() {
-        Map<String, Object> args = new HashMap<String, Object>();
-
-        // default exchange - where the message will be republished
-        args.put("user.exchange", "");
-
-        // route to the incoming queue when the TTL occurs. The dlq queue name
-        args.put("user.queue.dlq", DEAD_LETTER_QUEUE);
-
-        // TTL 5 seconds. Defines how long the message will stay on the queue
-        // before its Time-To-Live expires and it's placed on the incoming queue
-        args.put("x-message-ttl", 5000);
-
-        return new Queue(QUEUE, false, false, false, args);
-    }
-
-    @Bean
-    public RabbitTemplate outgoingSender() {
-
-        RabbitTemplate rabbitTemplate = new RabbitTemplate(cachingConnectionFactory);
-        rabbitTemplate.setDefaultReceiveQueue(outgoingQueue().getName());
-        rabbitTemplate.setRoutingKey(outgoingQueue().getName());
-        rabbitTemplate.setMessageConverter(jsonMessageConverter());
-
-        return rabbitTemplate;
-    }
-
-    @Bean
-    public Queue incomingQueue() {
-        return new Queue(DEAD_LETTER_QUEUE);
-    }*/
 }

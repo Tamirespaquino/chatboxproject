@@ -4,7 +4,6 @@ import com.tamiresntt.services.domain.Message;
 import com.tamiresntt.services.dto.MessageDTO;
 import com.tamiresntt.services.exception.ObjectNotFoundException;
 import com.tamiresntt.services.repository.MessageRepository;
-import com.tamiresntt.services.utils.DateConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +32,7 @@ public class MessageService {
 
             var msg = msgRepository.findById(id);
             var listMessage = new ArrayList<MessageDTO>();
-            listMessage.add(MessageDTO.converter(msg.get().getMessage(), msg.get().getSender(), msg.get().getReceiver(), DateConverter.toLocalDateTime(msg.get().getCreateDate())));
+            listMessage.add(MessageDTO.converter(msg.get().getMessage(), msg.get().getSender(), msg.get().getReceiver(), msg.get().getCreateDate()));
 
             return listMessage;
         }
@@ -45,5 +44,4 @@ public class MessageService {
 
         return obj.stream().map(MessageDTO::new).collect(Collectors.toList());
     }
-
 }

@@ -10,17 +10,17 @@ public class MessageDTO implements Serializable {
     private String message;
     private String sender;
     private String receiver;
-    private Long createDate;
+    private String createDate;
 
 
-    public MessageDTO(String message, String sender, String receiver, Long createDate) {
+    public MessageDTO(String message, String sender, String receiver, String createDate) {
         this.message = message;
         this.sender = sender;
         this.receiver = receiver;
         this.createDate = createDate;
     }
 
-    public Long getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 

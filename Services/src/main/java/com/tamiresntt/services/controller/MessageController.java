@@ -28,7 +28,7 @@ public class MessageController implements Serializable {
         return ResponseEntity.ok().body(listDto);
     }*/
 
-    @GetMapping // passar no header do axios do front
+    @GetMapping
     public ResponseEntity<List<MessageDTO>> findMessage(
             @RequestHeader(value = "username") String username,
             @RequestHeader(value = "id") String id,

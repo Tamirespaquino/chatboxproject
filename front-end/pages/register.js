@@ -34,12 +34,12 @@ const Auth = () => {
     axios
       .post(
         'http://localhost:9091/users/register',
-        {firstname:firstName, lastname:lastName, username:username, password:password, confirmPassword:confirmPassword, email:email, cpf:cpf, address:address}
+        {firstname:firstname, lastname:lastname, username:username, password:password, confirmPassword:confirmPassword, email:email, cpf:cpf, address:address}
       )
       
       .then((r) => { 
-        localStorage.setItem('apiToken', r.data.token);
-        router.push('/account/login');
+        // localStorage.setItem('apiToken', r.data.token);
+        router.push('/login');
       });
   }
 
@@ -49,19 +49,19 @@ const Auth = () => {
       <div className="auth-container-register">
 
          {/* Register */}
-        <form className="auth-form" onRegister={(e) => onRegister(e)}>
+        <form className="auth-form" onSubmit={onRegister}>
           <div className="auth-title">Register</div>
 
           <div className="input-container">
             <input
-            placeholder="First name"
+            placeholder="Firstname"
             className="text-input"
             onChange={(e) => setFirstname(e.target.value)}
             />
           </div>
           <div className="input-container">
             <input
-            placeholder="Last name"
+            placeholder="Lastname"
             className="text-input"
             onChange={(e) => setLastname(e.target.value)}
             />
@@ -111,7 +111,7 @@ const Auth = () => {
             />
           </div>
           <button type="submit" className="submit-only-button">
-            <a href="/login">Send</a>
+            <a>Send</a>
           </button>
         </form>
       </div>

@@ -27,7 +27,7 @@ const Auth = () => {
       
       .then((r) => { 
         localStorage.setItem('apiToken', r.data.token);
-        router.push('../message/chats');
+        router.push('/chats');
       });
   }
 

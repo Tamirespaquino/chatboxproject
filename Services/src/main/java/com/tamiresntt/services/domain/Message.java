@@ -16,6 +16,6 @@ public class Message implements Serializable {
     private String message;
     private String sender;
     private String receiver;
-    private Long createDate;
+    private String createDate;
 
 }

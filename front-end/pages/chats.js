@@ -139,7 +139,6 @@ export default function ChatRoom() {
 
     return (
         <div className="container">
-            {userData.connected?
             <div className="chat-box">
                 <div className="member-list">
                     <ul>
@@ -182,20 +181,6 @@ export default function ChatRoom() {
                     </div>
                 </div>}                
             </div>
-            :
-            <div className="register">
-                <input
-                id="user-name"
-                placeholder="Enter your name"
-                name="sender"
-                value={userData.username}
-                onChange={handleUsername}
-                margin="normal"
-                />
-                <button type="button" onClick={registerUser}>
-                    Connect
-                </button>
-            </div>}
         </div>
     );
 }

@@ -22,8 +22,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     private final UserRepository repository;
 
     @Value("${jwt.secret}")
-    private String secret;
-
+    private String secret = "827ccb0eea8a706c4c34a16891f84e7b";
     public TokenAuthenticationFilter(TokenService tokenService, UserRepository repository) {
         this.tokenService = tokenService;
         this.repository = repository;
@@ -48,25 +47,16 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     public boolean isValid(String token) {
 
-        System.out.println(token);
+        System.out.println(secret);
 
         try{
-            Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token);
+            Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
             return true;
         }catch(Exception ex){
+            System.out.println("erro do is Valid" + ex);
             return false;
         }
     }
-
-    /*private void autenticateUser(String token) {
-
-        String idUser = tokenService.getTokenId(token);
-
-        UserRegister user = repository.findById(idUser).get();
-        System.out.println(user.getUsername());
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null,null);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-    }*/
     private void authenticate(String tokenFromHeader) {
         String id = tokenService.getTokenId(tokenFromHeader);
 
@@ -76,7 +66,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
             UserRegister user = optionalUser.get();
 
-            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user, null);
+            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user, null, null);
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
         }
     }
