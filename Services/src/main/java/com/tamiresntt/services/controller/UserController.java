@@ -2,6 +2,7 @@ package com.tamiresntt.services.controller;
 
 import com.tamiresntt.services.domain.UserRegister;
 import com.tamiresntt.services.dto.TokenDTO;
+import com.tamiresntt.services.dto.UserDTO;
 import com.tamiresntt.services.dto.UserLoginDTO;
 import com.tamiresntt.services.dto.UserRegisterDTO;
 import com.tamiresntt.services.services.TokenService;
@@ -11,6 +12,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +33,6 @@ public class UserController implements Serializable {
         this.authenticationManager = authenticationManager;
         this.tokenService = tokenService;
         this.userService = userService;
-        // this.encoder = encoder;
     }
 
     // register - cadastrar usuario
@@ -60,7 +61,6 @@ public class UserController implements Serializable {
         }
     }
 
-
     // findAll - lista todos usuarios
     @GetMapping
     public ResponseEntity<List<UserRegisterDTO>> findAll() {
@@ -70,11 +70,14 @@ public class UserController implements Serializable {
         return ResponseEntity.ok().body(listDto);
     }
 
-    // findById - encontra por Id (retirar?)
     @GetMapping(value = "/{id}")
-    public ResponseEntity<UserRegisterDTO> findById(@PathVariable String id) {
-        UserRegister obj = userService.findById(id);
-        return ResponseEntity.ok().body(new UserRegisterDTO());
+    public ResponseEntity<UserDTO> findById(@PathVariable String id) {
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserRegister userLogged = (UserRegister) principal;
+        UserRegister obj = userService.findById(userLogged.getId());
+
+        return ResponseEntity.ok().body(UserDTO.converter(obj));
     }
 
     // delete - deleta usuario do BD

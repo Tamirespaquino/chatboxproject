@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import basePath from '../api/basePath/producer';
+import service from '../api/basePath/service';
 import {over} from 'stompjs';
 import SockJS from 'sockjs-client';
 import axios from "axios";
@@ -9,6 +10,7 @@ var stompClient = null;
 export default function ChatRoom() {
     const [privateChats, setPrivateChats] = useState(new Map());
     const [publicChats, setPublicChats] = useState([]);
+    const [insert, setInsert] = useState("");
     const [tab, setTab] = useState("CHATROOM");    
     const [userData, setUserData] = useState({
         username: '',
@@ -24,6 +26,23 @@ export default function ChatRoom() {
     useEffect(() => {
         console.log(publicChats);
     }, [publicChats]);
+
+    useEffect(async () => {
+        const retorno = await axios.get(service.url + "users/12233",
+            {
+                headers:
+                    { "Authorization": "Bearer " + localStorage.getItem("apiToken") }
+            });
+
+        console.log(retorno);
+        await setUserData({ ...userData, "username": retorno.data.username });
+        setInsert("insert");
+        
+    }, []);
+
+    useEffect(() => {
+        connect();
+    }, [insert]);
 
     const connect = () => {
         let Sock = new SockJS('http://localhost:8080/chat');
@@ -128,14 +147,14 @@ export default function ChatRoom() {
         }
     } 
     
-    const handleUsername = (event) => {
+    /*const handleUsername = (event) => {
         const {value} = event.target;
         setUserData({...userData, "username": value});
     }
 
     const registerUser = () => {
         connect();
-    }
+    }*/
 
     return (
         <div className="container">

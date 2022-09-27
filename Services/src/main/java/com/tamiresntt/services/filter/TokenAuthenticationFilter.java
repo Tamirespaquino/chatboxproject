@@ -47,17 +47,15 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     public boolean isValid(String token) {
 
-        System.out.println(secret);
-
         try{
             Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
             return true;
         }catch(Exception ex){
-            System.out.println("erro do is Valid" + ex);
             return false;
         }
     }
     private void authenticate(String tokenFromHeader) {
+
         String id = tokenService.getTokenId(tokenFromHeader);
 
         Optional<UserRegister> optionalUser = repository.findById(id);
