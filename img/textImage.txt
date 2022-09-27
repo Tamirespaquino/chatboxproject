@@ -1,0 +1,18 @@
+title ChatBox Project
+
+fontawesome5brands f41b Front-end
+fontawesome5brands f4e4 Producer #red
+fontawesome5regular f0e0 RabbitMQ #orange
+fontawesome5brands f4e4 Consumer #red
+fontawesome5solid f1c0 MongoDB #blue
+fontawesome5brands f4e4 Service #red
+
+
+Front-end->Producer:        POST\n **/send-message** 
+Front-end<-Producer:        WebSocket
+Producer->RabbitMQ:send messages
+RabbitMQ<-Consumer:listen messages
+RabbitMQ<-Consumer: dead-letter-queue
+Consumer->MongoDB:save messages
+Service->MongoDB:     GET \n**/messages \n/users \n/users/{id}**
+Service->MongoDB:     POST \n**/users/login \n/users/register**
