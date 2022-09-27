@@ -7,9 +7,10 @@ import com.tamiresntt.services.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -26,18 +27,16 @@ public class MessageService {
         return obj.orElseThrow(() -> new ObjectNotFoundException("Mensagem nao encontrada"));
     }
 
-    public List<MessageDTO> findByFilter(String id, String username, LocalDateTime beginDate, LocalDateTime endDate) {
+    public List<MessageDTO> findByFilter(String id, String username, LocalDate beginDate, LocalDate endDate) {
 
-        if (username == null || beginDate == null || endDate == null) {
-
+        if(Objects.nonNull(id)) {
             var msg = msgRepository.findById(id);
             var listMessage = new ArrayList<MessageDTO>();
             listMessage.add(MessageDTO.converter(msg.get().getMessage(), msg.get().getSender(), msg.get().getReceiver(), msg.get().getCreateDate()));
-
             return listMessage;
         }
 
-        List<Message> obj = msgRepository.findByFilter(id, username, beginDate, endDate);
+        List<Message> obj = msgRepository.findByFilter(username, beginDate, endDate);
 
         if (obj.isEmpty())
             throw new ObjectNotFoundException("Mensagem nao encontrada");
